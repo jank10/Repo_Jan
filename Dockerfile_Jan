@@ -16,7 +16,27 @@ EXPOSE 80
 # Define environment variable
 ENV NAME World
 
+# Mount a volume to /app/data
 VOLUME /app/data
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]
+
+# Add additional configuration or commands below
+# For example:
+
+# Set timezone to UTC
+ENV TZ=UTC
+
+# Set a label with maintainer information
+LABEL maintainer="yourname@example.com"
+
+# Create a directory for logs
+RUN mkdir /app/logs
+
+# Set permissions for the logs directory
+RUN chmod 755 /app/logs
+
+# Healthcheck to ensure the container is running correctly
+HEALTHCHECK --interval=30s --timeout=10s \
+  CMD curl -f http://localhost/ || exit 1
